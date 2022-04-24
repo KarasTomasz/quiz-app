@@ -1,27 +1,28 @@
-package pl.tkaras.api.mappers;
+package pl.tkaras.api.mappers.impl;
 
 import org.springframework.stereotype.Component;
 import pl.tkaras.api.documents.AppUser;
-import pl.tkaras.api.dto.AppUserDto;
+import pl.tkaras.api.dto.AppUserDTO;
+import pl.tkaras.api.mappers.IMapper;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class AppUserMapper implements Mapper<AppUser, AppUserDto>{
+@Component
+public class AppUserIMapper implements IMapper<AppUser, AppUserDTO> {
 
     @Override
-    public AppUserDto mapToDto(AppUser document) {
-        return new AppUserDto().builder()
+    public AppUserDTO mapToDto(AppUser document) {
+        return AppUserDTO.builder()
                 .firstName(document.getFirstName())
                 .lastName(document.getLastName())
                 .email(document.getEmail())
-                .gender(document.getGender())
                 .score(document.getScore())
                 .build();
     }
 
     @Override
-    public List<AppUserDto> mapToDtos(List<AppUser> list) {
+    public List<AppUserDTO> mapToDtos(List<AppUser> list) {
         return list.stream()
                 .map(this::mapToDto)
                 .collect(Collectors.toList());
