@@ -1,18 +1,17 @@
 package pl.tkaras.services;
 
-import pl.tkaras.api.dto.AppUserDto;
+import pl.tkaras.api.dto.AppUserDTO;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface IAppUserService {
 
-    List<AppUserDto> getAllAppUsers();
-    AppUserDto getAppUser(String email);
+    List<AppUserDTO> getAllAppUsers();
+    AppUserDTO getAppUser(String email);
 
-    AppUserDto addAppUser(AppUserDto userDto);
+    AppUserDTO addAppUser(AppUserDTO userDto);
 
-    AppUserDto updateAppUser(String email, AppUserDto userDto);
+    AppUserDTO updateAppUser(String email, AppUserDTO userDto);
 
     void deleteAppUser(String email);
 
