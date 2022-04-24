@@ -18,7 +18,6 @@ public class AppUser {
 
     @Indexed(unique = true)
     private String email;
-    private Gender gender;
     private Score score;
 
 
