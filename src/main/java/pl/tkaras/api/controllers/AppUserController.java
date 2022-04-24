@@ -4,8 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.tkaras.api.documents.AppUser;
-import pl.tkaras.api.dto.AppUserDto;
+import pl.tkaras.api.dto.AppUserDTO;
 import pl.tkaras.services.impl.AppUserService;
 
 import java.util.List;
@@ -18,22 +17,22 @@ public class AppUserController {
     private final AppUserService appUserService;
 
     @GetMapping("/all")
-    public ResponseEntity<List<AppUserDto>> fetchAllAppUsers(){
+    public ResponseEntity<List<AppUserDTO>> fetchAllAppUsers(){
         return new ResponseEntity<>(appUserService.getAllAppUsers(), HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<AppUserDto> fetchAppUser(@RequestParam String email){
+    public ResponseEntity<AppUserDTO> fetchAppUser(@RequestParam String email){
         return new ResponseEntity<>(appUserService.getAppUser(email), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<AppUserDto> registerAppUser(@RequestBody AppUserDto appUserDto){
+    public ResponseEntity<AppUserDTO> registerAppUser(@RequestBody AppUserDTO appUserDto){
         return new ResponseEntity<>(appUserService.addAppUser(appUserDto), HttpStatus.OK);
     }
 
     @PutMapping
-    public ResponseEntity<AppUserDto> updateAppUser(@RequestParam String email ,@RequestBody AppUserDto appUserDto){
+    public ResponseEntity<AppUserDTO> updateAppUser(@RequestParam String email , @RequestBody AppUserDTO appUserDto){
         return new ResponseEntity<>(appUserService.updateAppUser(email, appUserDto), HttpStatus.OK);
     }
 
