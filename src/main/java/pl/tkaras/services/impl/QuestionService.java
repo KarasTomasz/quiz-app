@@ -27,7 +27,7 @@ public class QuestionService {
         return questionMapper.mapToDtos(questionRepository.findAllByCategory(category));
     }
 
-    public List<QuestionDTO> getQuestionsByCategory(Integer amount ,Category category) {
+    public List<QuestionDTO> getQuestionsByCategory(Integer number ,Category category) {
 
         ArrayList<Question> questionList = new ArrayList<>();
 
@@ -36,7 +36,7 @@ public class QuestionService {
         //TODO: add random numbers without returning
         Random rand = new Random();
 
-        for(int i = 0; i < amount; i++){
+        for(int i = 0; i < number; i++){
 
             String questionId = ids.get(rand.nextInt(ids.size()));
 
@@ -86,7 +86,7 @@ public class QuestionService {
 
         Question question = questionRepository.findById(id)
                 .orElseThrow(() -> new QuestionNotFound(id));
-        
+
         question.builder()
                 .category(questionDTO.getCategory())
                 .content(questionDTO.getContent())
