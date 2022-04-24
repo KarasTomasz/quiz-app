@@ -1,36 +1,36 @@
 package pl.tkaras.services.impl;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.tkaras.api.dto.AppUserDto;
-import pl.tkaras.api.mappers.AppUserMapper;
+import pl.tkaras.api.dto.AppUserDTO;
+import pl.tkaras.api.mappers.impl.AppUserIMapper;
 import pl.tkaras.exceptions.EmailNotFoundException;
 import pl.tkaras.respositories.AppUserRepository;
 import pl.tkaras.services.IAppUserService;
 
 import java.util.List;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 public class AppUserService implements IAppUserService {
 
     private final AppUserRepository appUserRepository;
-    private final AppUserMapper appUserMapper;
+    private final AppUserIMapper appUserMapper;
 
-    public List<AppUserDto> getAllAppUsers(){
+    public List<AppUserDTO> getAllAppUsers(){
         return appUserMapper.mapToDtos(appUserRepository.findAll());
     }
 
-    public AppUserDto getAppUser(String email){
+    public AppUserDTO getAppUser(String email){
         return appUserMapper.mapToDto(appUserRepository.findByEmail(email)
                 .orElseThrow(() -> new EmailNotFoundException(email)));
     }
 
-    public AppUserDto addAppUser(AppUserDto userDto) {
+    public AppUserDTO addAppUser(AppUserDTO userDto) {
         return null; //TODO: implement register method
     }
 
-    public AppUserDto updateAppUser(String email, AppUserDto userDto) {
+    public AppUserDTO updateAppUser(String email, AppUserDTO userDto) {
         return null; //TODO: implement update
     }
 
