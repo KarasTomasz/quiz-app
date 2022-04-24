@@ -22,7 +22,7 @@ public class AppUserController {
     }
 
     @GetMapping
-    public ResponseEntity<AppUserDTO> fetchAppUser(@RequestParam String email){
+    public ResponseEntity<AppUserDTO> fetchAppUser(@RequestParam("email") String email){
         return new ResponseEntity<>(appUserService.getAppUser(email), HttpStatus.OK);
     }
 
@@ -32,12 +32,12 @@ public class AppUserController {
     }
 
     @PutMapping
-    public ResponseEntity<AppUserDTO> updateAppUser(@RequestParam String email , @RequestBody AppUserDTO appUserDto){
+    public ResponseEntity<AppUserDTO> updateAppUser(@RequestParam("email") String email , @RequestBody AppUserDTO appUserDto){
         return new ResponseEntity<>(appUserService.updateAppUser(email, appUserDto), HttpStatus.OK);
     }
 
     @DeleteMapping
-    public void updateAppUser(@RequestParam String email){
+    public void updateAppUser(@RequestParam("email") String email){
         appUserService.deleteAppUser(email);
     }
 

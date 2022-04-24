@@ -20,17 +20,17 @@ public class QuestionController {
     }
 
     @GetMapping("/category/all")
-    public ResponseEntity<List<QuestionDTO>> fetchAllQuestions(@RequestParam Category category){
+    public ResponseEntity<List<QuestionDTO>> fetchAllQuestions(@RequestParam("category") Category category){
         return new ResponseEntity<>(questionService.getQuestionsByCategory(category), HttpStatus.OK);
     }
 
     @GetMapping("/category/")
-    public ResponseEntity<List<QuestionDTO>> fetchQuestions(@RequestParam Integer amount, @RequestParam Category category){
-        return new ResponseEntity<>(questionService.getQuestionsByCategory(amount, category), HttpStatus.OK);
+    public ResponseEntity<List<QuestionDTO>> fetchQuestions(@RequestParam("number") Integer number, @RequestParam Category category){
+        return new ResponseEntity<>(questionService.getQuestionsByCategory(number, category), HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<QuestionDTO> fetchRandomQuestion(@RequestParam Category category){
+    public ResponseEntity<QuestionDTO> fetchRandomQuestion(@RequestParam("category") Category category){
         return new ResponseEntity<>(questionService.getRandomQuestion(category), HttpStatus.OK);
     }
 
@@ -40,13 +40,13 @@ public class QuestionController {
     }
 
     @PutMapping
-    public ResponseEntity<QuestionDTO> updateQuestion(@RequestParam String id, @RequestBody QuestionDTO questionDTO){
+    public ResponseEntity<QuestionDTO> updateQuestion(@RequestParam("id") String id, @RequestBody QuestionDTO questionDTO){
         return new ResponseEntity<>(questionService.updateQuestion(id, questionDTO), HttpStatus.OK);
 
     }
 
     @DeleteMapping("")
-    public ResponseEntity<QuestionDTO> deleteQuestion(@RequestParam String id){
+    public ResponseEntity<QuestionDTO> deleteQuestion(@RequestParam("id") String id){
         questionService.deleteQuestion(id);
         return ResponseEntity.ok().build();
     }
