@@ -29,17 +29,17 @@ public class QuestionController {
         return new ResponseEntity<>(questionService.getQuestionsByCategory(number, category), HttpStatus.OK);
     }
 
-    @GetMapping
+    @GetMapping("")
     public ResponseEntity<QuestionDTO> fetchRandomQuestion(@RequestParam("category") Category category){
         return new ResponseEntity<>(questionService.getRandomQuestion(category), HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("")
     public ResponseEntity<QuestionDTO> addQuestion(@RequestBody QuestionDTO questionDTO){
         return new ResponseEntity<>(questionService.addQuestion(questionDTO), HttpStatus.OK);
     }
 
-    @PutMapping
+    @PutMapping("")
     public ResponseEntity<QuestionDTO> updateQuestion(@RequestParam("id") String id, @RequestBody QuestionDTO questionDTO){
         return new ResponseEntity<>(questionService.updateQuestion(id, questionDTO), HttpStatus.OK);
 
