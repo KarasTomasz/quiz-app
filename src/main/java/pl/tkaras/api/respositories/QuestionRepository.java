@@ -1,5 +1,6 @@
-package pl.tkaras.respositories;
+package pl.tkaras.api.respositories;
 
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -11,13 +12,9 @@ import java.util.Optional;
 
 @Repository
 public interface QuestionRepository extends MongoRepository<Question, String> {
-    Optional<Question> findById(String s);
+
+    @Query(value="{ 'category' : ?0 }",fields="{ '_id' : 1}")
     List<String> findIdByCategory(Category category);
     List<Question> findAllByCategory(Category category);
-
-    @Query("SELECT q FROM question q WHERE q.category = ?2 Limit ?1")
-    List<Question> findByCategory(Integer amount, Category category);
-
-    Question save(Question question);
     void deleteById(String id);
 }
