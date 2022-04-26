@@ -23,9 +23,26 @@ public class QuestionMapper implements IMapper<Question, QuestionDTO> {
     }
 
     @Override
+    public Question mapToDocument(QuestionDTO questionDTO) {
+        return Question.builder()
+                .category(questionDTO.getCategory())
+                .content(questionDTO.getContent())
+                .answers(questionDTO.getAnswers())
+                .correctAnswer(questionDTO.getCorrectAnswer())
+                .build();
+    }
+
+    @Override
     public List<QuestionDTO> mapToDtos(List<Question> list) {
         return list.stream()
                 .map(this::mapToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Question> mapToDocuments(List<QuestionDTO> list) {
+        return list.stream()
+                .map(this::mapToDocument)
                 .collect(Collectors.toList());
     }
 }
