@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class AppUserIMapper implements IMapper<AppUser, AppUserDTO> {
+public class AppUserMapper implements IMapper<AppUser, AppUserDTO> {
 
     @Override
     public AppUserDTO mapToDto(AppUser document) {
@@ -17,7 +17,15 @@ public class AppUserIMapper implements IMapper<AppUser, AppUserDTO> {
                 .firstName(document.getFirstName())
                 .lastName(document.getLastName())
                 .email(document.getEmail())
-                .score(document.getScore())
+                .build();
+    }
+
+    @Override
+    public AppUser mapToDocument(AppUserDTO appUserDTO) {
+        return AppUser.builder()
+                .email(appUserDTO.getEmail())
+                .firstName(appUserDTO.getFirstName())
+                .lastName(appUserDTO.getLastName())
                 .build();
     }
 
@@ -25,6 +33,13 @@ public class AppUserIMapper implements IMapper<AppUser, AppUserDTO> {
     public List<AppUserDTO> mapToDtos(List<AppUser> list) {
         return list.stream()
                 .map(this::mapToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<AppUser> mapToDocuments(List<AppUserDTO> list) {
+        return list.stream()
+                .map(this::mapToDocument)
                 .collect(Collectors.toList());
     }
 }
