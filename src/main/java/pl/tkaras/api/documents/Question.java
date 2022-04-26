@@ -15,11 +15,17 @@ public class Question {
 
     @Id
     private String id;
+
     private Category category;
+
     private String content;
+
     private List<String> answers;
+
     private Integer correctAnswer;
+
     private LocalDateTime createdAt;
+
     private LocalDateTime updatedAt;
 
 }
