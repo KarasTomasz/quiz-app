@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.tkaras.api.documents.AppUser;
 import pl.tkaras.api.dto.AppUserDTO;
-import pl.tkaras.services.impl.AppUserService;
+import pl.tkaras.api.mappers.impl.AppUserMapper;
+import pl.tkaras.api.services.impl.AppUserService;
 
 import java.util.List;
 
@@ -15,30 +17,38 @@ import java.util.List;
 public class AppUserController {
 
     private final AppUserService appUserService;
+    private final AppUserMapper appUserMapper;
 
     @GetMapping("/all")
     public ResponseEntity<List<AppUserDTO>> fetchAllAppUsers(){
-        return new ResponseEntity<>(appUserService.getAllAppUsers(), HttpStatus.OK);
+        List<AppUser> appUsers = appUserService.getAllAppUsers();
+        return new ResponseEntity<>(appUserMapper.mapToDtos(appUsers), HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity<AppUserDTO> fetchAppUser(@RequestParam("email") String email){
-        return new ResponseEntity<>(appUserService.getAppUser(email), HttpStatus.OK);
+        AppUser appUser = appUserService.getAppUser(email);
+        return new ResponseEntity<>(appUserMapper.mapToDto(appUser), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<AppUserDTO> registerAppUser(@RequestBody AppUserDTO appUserDto){
-        return new ResponseEntity<>(appUserService.addAppUser(appUserDto), HttpStatus.OK);
+        AppUser appUser = appUserMapper.mapToDocument(appUserDto);
+        AppUser returnedAppUser = appUserService.addAppUser(appUser);
+        return new ResponseEntity<>(appUserMapper.mapToDto(returnedAppUser), HttpStatus.OK);
     }
 
     @PutMapping
     public ResponseEntity<AppUserDTO> updateAppUser(@RequestParam("email") String email , @RequestBody AppUserDTO appUserDto){
-        return new ResponseEntity<>(appUserService.updateAppUser(email, appUserDto), HttpStatus.OK);
+        AppUser appUser = appUserMapper.mapToDocument(appUserDto);
+        AppUser returnedAppUser = appUserService.updateAppUser(email, appUser);
+        return new ResponseEntity<>(appUserMapper.mapToDto(returnedAppUser), HttpStatus.OK);
     }
 
     @DeleteMapping
-    public void updateAppUser(@RequestParam("email") String email){
+    public ResponseEntity updateAppUser(@RequestParam("email") String email){
         appUserService.deleteAppUser(email);
+        return ResponseEntity.ok().build();
     }
 
 }
