@@ -1,5 +1,6 @@
 package pl.tkaras.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,8 +16,13 @@ import java.util.List;
 public class QuestionDTO {
 
     private String id;
+
     private Category category;
+
     private String content;
+
     private List<String> answers;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Integer correctAnswer;
 }
