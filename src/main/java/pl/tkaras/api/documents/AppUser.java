@@ -13,12 +13,16 @@ public class AppUser {
 
     @Id
     private String id;
+
     private String firstName;
+
     private String lastName;
 
     @Indexed(unique = true)
     private String email;
-    private Score score;
 
+    private String password;
+
+    private Long score;
 
 }
