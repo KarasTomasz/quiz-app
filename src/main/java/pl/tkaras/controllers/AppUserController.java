@@ -1,13 +1,13 @@
-package pl.tkaras.api.controllers;
+package pl.tkaras.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.tkaras.api.documents.AppUser;
-import pl.tkaras.api.dto.AppUserDTO;
-import pl.tkaras.api.mappers.impl.AppUserMapper;
-import pl.tkaras.api.services.impl.AppUserService;
+import pl.tkaras.models.documents.AppUser;
+import pl.tkaras.models.dto.AppUserDTO;
+import pl.tkaras.models.mappers.impl.AppUserMapper;
+import pl.tkaras.services.impl.AppUserService;
 
 import java.util.List;
 

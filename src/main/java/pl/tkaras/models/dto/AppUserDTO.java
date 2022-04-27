@@ -1,28 +1,26 @@
-package pl.tkaras.api.dto;
+package pl.tkaras.models.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.tkaras.api.documents.Category;
-
-import java.util.List;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class QuestionDTO {
+public class AppUserDTO {
 
     private String id;
 
-    private Category category;
+    private String firstName;
 
-    private String content;
+    private String lastName;
 
-    private List<String> answers;
+    private String email;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Integer correctAnswer;
+    private String password;
+
 }

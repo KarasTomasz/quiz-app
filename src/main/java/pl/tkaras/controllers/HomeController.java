@@ -1,4 +1,4 @@
-package pl.tkaras.api.controllers;
+package pl.tkaras.controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

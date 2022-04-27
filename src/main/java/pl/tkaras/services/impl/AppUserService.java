@@ -1,13 +1,13 @@
-package pl.tkaras.api.services.impl;
+package pl.tkaras.services.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.tkaras.api.documents.AppUser;
-import pl.tkaras.api.services.IAppUserService;
+import pl.tkaras.models.documents.AppUser;
+import pl.tkaras.services.IAppUserService;
 import pl.tkaras.exceptions.impl.AppUserAlreadyExist;
 import pl.tkaras.exceptions.impl.AppUserNotFound;
 import pl.tkaras.exceptions.impl.EmailNotFound;
-import pl.tkaras.api.respositories.AppUserRepository;
+import pl.tkaras.respositories.AppUserRepository;
 
 import java.util.List;
 

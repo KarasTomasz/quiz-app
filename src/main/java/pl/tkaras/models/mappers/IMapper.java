@@ -1,4 +1,4 @@
-package pl.tkaras.api.mappers;
+package pl.tkaras.models.mappers;
 
 import java.util.List;
 

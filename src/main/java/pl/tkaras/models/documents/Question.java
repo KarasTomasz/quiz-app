@@ -1,4 +1,4 @@
-package pl.tkaras.api.documents;
+package pl.tkaras.models.documents;
 
 import lombok.Builder;
 import lombok.Data;

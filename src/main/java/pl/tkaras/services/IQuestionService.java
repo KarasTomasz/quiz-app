@@ -1,7 +1,7 @@
-package pl.tkaras.api.services;
+package pl.tkaras.services;
 
-import pl.tkaras.api.documents.Category;
-import pl.tkaras.api.documents.Question;
+import pl.tkaras.models.documents.Category;
+import pl.tkaras.models.documents.Question;
 
 import java.util.List;
 

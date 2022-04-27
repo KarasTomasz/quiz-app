@@ -1,6 +1,6 @@
-package pl.tkaras.api.services;
+package pl.tkaras.services;
 
-import pl.tkaras.api.documents.AppUser;
+import pl.tkaras.models.documents.AppUser;
 
 import java.util.List;
 

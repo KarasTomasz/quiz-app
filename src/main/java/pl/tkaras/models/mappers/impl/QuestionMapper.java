@@ -1,9 +1,9 @@
-package pl.tkaras.api.mappers.impl;
+package pl.tkaras.models.mappers.impl;
 
 import org.springframework.stereotype.Component;
-import pl.tkaras.api.documents.Question;
-import pl.tkaras.api.dto.QuestionDTO;
-import pl.tkaras.api.mappers.IMapper;
+import pl.tkaras.models.documents.Question;
+import pl.tkaras.models.dto.QuestionDTO;
+import pl.tkaras.models.mappers.IMapper;
 
 import java.util.List;
 import java.util.stream.Collectors;

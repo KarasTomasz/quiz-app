@@ -1,13 +1,13 @@
-package pl.tkaras.api.services.impl;
+package pl.tkaras.services.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.tkaras.api.documents.Category;
-import pl.tkaras.api.documents.Question;
-import pl.tkaras.api.services.IQuestionService;
+import pl.tkaras.models.documents.Category;
+import pl.tkaras.models.documents.Question;
+import pl.tkaras.services.IQuestionService;
 import pl.tkaras.exceptions.impl.QuestionNotEnough;
 import pl.tkaras.exceptions.impl.QuestionNotFound;
-import pl.tkaras.api.respositories.QuestionRepository;
+import pl.tkaras.respositories.QuestionRepository;
 
 import java.time.LocalDateTime;
 import java.util.*;

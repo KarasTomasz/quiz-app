@@ -1,14 +1,14 @@
-package pl.tkaras.api.controllers;
+package pl.tkaras.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.tkaras.api.documents.Category;
-import pl.tkaras.api.documents.Question;
-import pl.tkaras.api.dto.QuestionDTO;
-import pl.tkaras.api.mappers.impl.QuestionMapper;
-import pl.tkaras.api.services.impl.QuestionService;
+import pl.tkaras.models.documents.Category;
+import pl.tkaras.models.documents.Question;
+import pl.tkaras.models.dto.QuestionDTO;
+import pl.tkaras.models.mappers.impl.QuestionMapper;
+import pl.tkaras.services.impl.QuestionService;
 
 import java.util.List;
 
