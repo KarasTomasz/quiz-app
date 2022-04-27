@@ -46,7 +46,7 @@ public class AppUserController {
     }
 
     @DeleteMapping
-    public ResponseEntity updateAppUser(@RequestParam("email") String email){
+    public ResponseEntity deleteAppUser(@RequestParam("email") String email){
         appUserService.deleteAppUser(email);
         return ResponseEntity.ok().build();
     }
