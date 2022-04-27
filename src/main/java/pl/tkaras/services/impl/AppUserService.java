@@ -36,7 +36,14 @@ public class AppUserService implements IAppUserService {
     }
 
     public AppUser updateAppUser(String email, AppUser appUser) {
-        return null; //TODO: implement update
+        AppUser foundAppUser = appUserRepository.findByEmail(email)
+                .orElseThrow((() -> new AppUserNotFound(email)));
+
+        foundAppUser.setFirstName(appUser.getFirstName());
+        foundAppUser.setLastName(appUser.getLastName());
+        foundAppUser.setPassword(appUser.getPassword());
+
+        return appUserRepository.save(foundAppUser);
     }
 
     public void deleteAppUser(String email) {
