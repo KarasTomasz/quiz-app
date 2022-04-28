@@ -2,6 +2,8 @@ package pl.tkaras.services.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import pl.tkaras.models.documents.Answer;
 import pl.tkaras.models.documents.Category;
 import pl.tkaras.models.documents.Question;
 import pl.tkaras.services.IQuestionService;
@@ -17,6 +19,7 @@ import java.util.*;
 public class QuestionService  implements IQuestionService {
 
     private final QuestionRepository questionRepository;
+    private final AnswerService answerService;
     
     public List<Question> getQuestionsByCategory(Category category) {
         return questionRepository.findAllByCategory(category);
@@ -42,15 +45,17 @@ public class QuestionService  implements IQuestionService {
         }
     }
 
-    public boolean checkAnswer(String id, Integer answer) {
-        Question question = questionRepository.findById(id)
-                .orElseThrow(() -> new QuestionNotFound(id));
-
-        return question.getCorrectAnswer().equals(answer);
-    }
-
+    @Transactional
     public Question addQuestion(Question question) {
         question.setCreatedAt(LocalDateTime.now());
+
+        Answer answer = Answer.builder()
+                .questionId(question.getId())
+                .correctAnswer(question.getCorrectAnswer())
+                .build();
+
+        answerService.addAnswer(answer);
+
         return questionRepository.save(question);
     }
 
