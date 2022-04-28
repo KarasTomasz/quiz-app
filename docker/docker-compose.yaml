@@ -33,8 +33,6 @@ services:
     volumes:
       - C:/Users/TmK/jenkins_compose/jenkins_configuration:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      - TESTCONTAINERS_RYUK_DISABLED=true
 
 volumes:
   data: {}
