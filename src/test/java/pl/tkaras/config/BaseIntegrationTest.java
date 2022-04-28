@@ -15,7 +15,9 @@ public abstract class BaseIntegrationTest {
     private static final MongoDBContainer mongoDBContainer;
 
     static {
-        mongoDBContainer = new MongoDBContainer("mongo:4.4.2");
+        mongoDBContainer = new MongoDBContainer("mongo:4.4.2")
+                .withAccessToHost(true);
+
         mongoDBContainer.start();
     }
 
