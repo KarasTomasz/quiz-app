@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     tools {
-        // Install the Maven version configured as "M3" and add it to the path.
         maven "M3"
     }
 
@@ -10,10 +9,16 @@ pipeline {
         stage('Build') {
             steps {
                 sh "mvn clean compile"
-                //git 'https://github.com/jglick/simple-maven-project-with-tests.git'
             }
         }
         stage('Test') {
+            agent {
+                docker {
+                    reuseNode true
+                    image 'openjdk:11.0-jdk-slim'
+                    args  '-v /var/run/docker.sock:/var/run/docker.sock --group-add 992'
+                }
+            }
             steps {
                 sh "mvn test"
             }
@@ -23,5 +28,5 @@ pipeline {
                 sh "mvn clean heroku:deploy"
             }
         }
-    }
-}
+    } //stages
+} //pipeline
