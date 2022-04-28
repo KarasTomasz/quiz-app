@@ -16,7 +16,7 @@ public abstract class BaseIntegrationTest {
 
     static {
         mongoDBContainer = new MongoDBContainer("mongo:4.4.2")
-                .withAccessToHost(true);
+                .withExposedPorts(27017);
 
         mongoDBContainer.start();
     }
