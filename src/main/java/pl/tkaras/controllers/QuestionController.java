@@ -12,9 +12,10 @@ import pl.tkaras.services.impl.QuestionService;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequiredArgsConstructor
-@RestController
 @RequestMapping("api/v1/question")
+@RestController
 public class QuestionController {
 
     private final QuestionService questionService;

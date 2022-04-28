@@ -9,6 +9,7 @@ import pl.tkaras.models.dto.AnswerDTO;
 import pl.tkaras.models.mappers.impl.AnswerMapper;
 import pl.tkaras.services.impl.AnswerService;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @AllArgsConstructor
 @RequestMapping("api/v1/answer")
 @RestController

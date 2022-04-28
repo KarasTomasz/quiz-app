@@ -11,6 +11,7 @@ import pl.tkaras.services.impl.AppUserService;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @AllArgsConstructor
 @RequestMapping("api/v1/appUser")
 @RestController
@@ -46,7 +47,7 @@ public class AppUserController {
     }
 
     @DeleteMapping
-    public ResponseEntity deleteAppUser(@RequestParam("email") String email){
+    public ResponseEntity<?> deleteAppUser(@RequestParam("email") String email){
         appUserService.deleteAppUser(email);
         return ResponseEntity.ok().build();
     }
