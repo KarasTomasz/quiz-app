@@ -33,12 +33,6 @@ public class QuestionController {
         return new ResponseEntity<>(questionMapper.mapToDtos(questions), HttpStatus.OK);
     }
 
-    @PostMapping("/answer")
-    public ResponseEntity<Boolean> checkAnswer(@RequestParam("questionId") String id, @RequestParam("answer") Integer answer){
-        boolean result = questionService.checkAnswer(id, answer);
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
-
     @PostMapping("")
     public ResponseEntity<QuestionDTO> addQuestion(@RequestBody QuestionDTO questionDTO){
         Question question = questionMapper.mapToDocument(questionDTO);
@@ -49,13 +43,13 @@ public class QuestionController {
     @PutMapping("")
     public ResponseEntity<QuestionDTO> updateQuestion(@RequestParam("id") String id, @RequestBody QuestionDTO questionDTO){
         Question question = questionMapper.mapToDocument(questionDTO);
-        Question returnedQuestion =questionService.updateQuestion(id, question);
+        Question returnedQuestion = questionService.updateQuestion(id, question);
         return new ResponseEntity<>(questionMapper.mapToDto(returnedQuestion), HttpStatus.OK);
 
     }
 
     @DeleteMapping("")
-    public ResponseEntity<QuestionDTO> deleteQuestion(@RequestParam("id") String id){
+    public ResponseEntity<?> deleteQuestion(@RequestParam("id") String id){
         questionService.deleteQuestion(id);
         return ResponseEntity.ok().build();
     }
