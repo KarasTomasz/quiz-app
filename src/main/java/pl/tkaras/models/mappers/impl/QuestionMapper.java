@@ -18,7 +18,6 @@ public class QuestionMapper implements IMapper<Question, QuestionDTO> {
                 .category(document.getCategory())
                 .content(document.getContent())
                 .answers(document.getAnswers())
-                .correctAnswer(document.getCorrectAnswer())
                 .build();
     }
 
@@ -28,7 +27,6 @@ public class QuestionMapper implements IMapper<Question, QuestionDTO> {
                 .category(questionDTO.getCategory())
                 .content(questionDTO.getContent())
                 .answers(questionDTO.getAnswers())
-                .correctAnswer(questionDTO.getCorrectAnswer())
                 .build();
     }
 
