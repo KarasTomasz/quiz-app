@@ -11,7 +11,7 @@ public interface IQuestionService {
 
     List<Question> getQuestionsByCategory(Integer number ,Category category);
 
-    Question addQuestion(Question question);
+    Question addQuestion(Question question, int correctAnswer);
 
     Question updateQuestion(String id, Question question);
 
