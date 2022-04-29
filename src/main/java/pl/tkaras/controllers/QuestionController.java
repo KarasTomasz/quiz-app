@@ -21,7 +21,6 @@ public class QuestionController {
     private final QuestionService questionService;
     private final QuestionMapper questionMapper;
 
-
     @GetMapping("/category/all")
     public ResponseEntity<List<QuestionDTO>> fetchAllQuestions(@RequestParam("category") Category category){
         List<Question> questions = questionService.getQuestionsByCategory(category);
@@ -37,7 +36,7 @@ public class QuestionController {
     @PostMapping("")
     public ResponseEntity<QuestionDTO> addQuestion(@RequestBody QuestionDTO questionDTO){
         Question question = questionMapper.mapToDocument(questionDTO);
-        Question returnedQuestion = questionService.addQuestion(question);
+        Question returnedQuestion = questionService.addQuestion(question, questionDTO.getCorrectAnswer());
         return new ResponseEntity<>(questionMapper.mapToDto(returnedQuestion), HttpStatus.OK);
     }
 
@@ -46,7 +45,6 @@ public class QuestionController {
         Question question = questionMapper.mapToDocument(questionDTO);
         Question returnedQuestion = questionService.updateQuestion(id, question);
         return new ResponseEntity<>(questionMapper.mapToDto(returnedQuestion), HttpStatus.OK);
-
     }
 
     @DeleteMapping("")
