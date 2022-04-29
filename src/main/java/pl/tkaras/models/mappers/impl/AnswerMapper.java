@@ -14,6 +14,7 @@ public class AnswerMapper implements IMapper<Answer, AnswerDTO> {
     @Override
     public AnswerDTO mapToDto(Answer document) {
         return AnswerDTO.builder()
+                .id(document.getId())
                 .questionId(document.getQuestionId())
                 .correctAnswer(document.getCorrectAnswer())
                 .build();
