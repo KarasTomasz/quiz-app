@@ -3,9 +3,12 @@ package pl.tkaras.services.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.tkaras.exceptions.impl.AnswerAlreadyExist;
+import pl.tkaras.exceptions.impl.AnswerNotFound;
 import pl.tkaras.models.documents.Answer;
 import pl.tkaras.models.documents.Category;
 import pl.tkaras.models.documents.Question;
+import pl.tkaras.respositories.AnswerRepository;
 import pl.tkaras.services.IQuestionService;
 import pl.tkaras.exceptions.impl.QuestionNotEnough;
 import pl.tkaras.exceptions.impl.QuestionNotFound;
@@ -19,7 +22,7 @@ import java.util.*;
 public class QuestionService  implements IQuestionService {
 
     private final QuestionRepository questionRepository;
-    private final AnswerService answerService;
+    private final AnswerRepository answerRepository;
     
     public List<Question> getQuestionsByCategory(Category category) {
         return questionRepository.findAllByCategory(category);
@@ -46,17 +49,27 @@ public class QuestionService  implements IQuestionService {
     }
 
     @Transactional
-    public Question addQuestion(Question question) {
+    public Question addQuestion(Question question, int correctAnswer) {
+
         question.setCreatedAt(LocalDateTime.now());
 
+        //add question
+        Question savedQuestion =  questionRepository.save(question);
+
         Answer answer = Answer.builder()
-                .questionId(question.getId())
-                .correctAnswer(question.getCorrectAnswer())
+                .questionId(savedQuestion.getId())
+                .correctAnswer(correctAnswer)
                 .build();
 
-        answerService.addAnswer(answer);
+        //add answer
+        if (!answerRepository.existsByQuestionId(savedQuestion.getId())){
+               answerRepository.save(answer);
+        }
+        else {
+            throw new AnswerAlreadyExist(answer.getQuestionId());
+        }
 
-        return questionRepository.save(question);
+        return savedQuestion;
     }
 
     public Question updateQuestion(String id, Question question) {
@@ -73,11 +86,21 @@ public class QuestionService  implements IQuestionService {
         return questionRepository.save(foundQuestion);
     }
 
+    @Transactional
     public void deleteQuestion(String id) {
-        if(questionRepository.existsById(id)){
+
+        Question returnedQuestion = questionRepository.findById(id)
+                .orElseThrow(() -> new QuestionNotFound(id));
+
+        if (answerRepository.existsByQuestionId(returnedQuestion.getId())){
+            //delete answer
+            answerRepository.deleteByQuestionId(returnedQuestion.getId());
+
+            //delete question
             questionRepository.deleteById(id);
         }
-        else throw new QuestionNotFound(id);
+        else {
+            throw new AnswerNotFound("answer");
+        }
     }
-
 }
