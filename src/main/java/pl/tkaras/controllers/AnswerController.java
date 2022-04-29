@@ -40,10 +40,4 @@ public class AnswerController {
         Answer returnedAnswer = answerService.updateAnswer(id, answer);
         return new ResponseEntity<>(answerMapper.mapToDto(returnedAnswer), HttpStatus.OK);
     }
-
-    @DeleteMapping("")
-    public ResponseEntity<String> deleteAnswer(@RequestParam("id") String id){
-        answerService.deleteAnswer(id);
-        return new ResponseEntity<>("" , HttpStatus.OK);
-    }
 }
