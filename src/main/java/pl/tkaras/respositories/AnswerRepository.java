@@ -10,5 +10,8 @@ import java.util.Optional;
 public interface AnswerRepository extends MongoRepository<Answer, String> {
 
     boolean existsByQuestionId(String questionID);
+
     Optional<Answer> findByQuestionId(String questionID);
+
+    void deleteByQuestionId(String questionId);
 }
