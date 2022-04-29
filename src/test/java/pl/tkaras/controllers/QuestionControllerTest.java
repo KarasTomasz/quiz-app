@@ -145,15 +145,12 @@ class QuestionControllerTest extends BaseIntegrationTest {
                 .andDo(print())
                 .andReturn();
 
-
         //then
         Question question = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), Question.class);
         assertThat(question).isNotNull();
         assertThat(question.getCategory()).isEqualTo(testQuestionDTO_1().getCategory());
         assertThat(question.getContent()).isEqualTo(testQuestionDTO_1().getContent());
         assertThat(question.getAnswers()).isEqualTo(testQuestionDTO_1().getAnswers());
-
-
     }
 
     @Order(9)
@@ -237,8 +234,6 @@ class QuestionControllerTest extends BaseIntegrationTest {
         return questions.get(0).getId();
 
     }
-
-
 
     private List<QuestionDTO> prepareQestionDTOs(){
         return Arrays.asList(testQuestionDTO_1());
