@@ -18,14 +18,7 @@ public class AnswerController {
     private final AnswerService answerService;
     private final AnswerMapper answerMapper;
 
-    @PostMapping("")
-    public ResponseEntity<AnswerDTO> addAnswer(@RequestBody AnswerDTO answerDTO){
-        Answer answer = answerMapper.mapToDocument(answerDTO);
-        Answer returnedAnswer = answerService.addAnswer(answer);
-        return new ResponseEntity<>(answerMapper.mapToDto(returnedAnswer), HttpStatus.OK);
-    }
-
-    @PostMapping("/check")
+    @GetMapping("/check")
     public ResponseEntity<AnswerDTO> checkAnswer(@RequestParam("questionID") String questionID, @RequestParam("num") Integer num){
         boolean isAnswerRight = answerService.checkAnswer(questionID, num);
         Answer answer = answerService.getAnswer(questionID);
