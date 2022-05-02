@@ -23,6 +23,8 @@ public class AppUser {
 
     private String password;
 
+    private AppUserRole role;
+
     private Long score;
 
 }
