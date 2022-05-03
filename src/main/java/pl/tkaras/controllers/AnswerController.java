@@ -3,6 +3,7 @@ package pl.tkaras.controllers;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pl.tkaras.models.documents.Answer;
 import pl.tkaras.models.dto.AnswerDTO;
@@ -18,6 +19,7 @@ public class AnswerController {
     private final AnswerService answerService;
     private final AnswerMapper answerMapper;
 
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/check")
     public ResponseEntity<AnswerDTO> checkAnswer(@RequestParam("questionID") String questionID, @RequestParam("num") Integer num){
         boolean isAnswerRight = answerService.checkAnswer(questionID, num);
@@ -27,6 +29,7 @@ public class AnswerController {
         return new ResponseEntity<>(answerDTO , HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("")
     public ResponseEntity<AnswerDTO> updateAnswer(@RequestParam("id") String id, @RequestBody AnswerDTO answerDTO){
         Answer answer = answerMapper.mapToDocument(answerDTO);
