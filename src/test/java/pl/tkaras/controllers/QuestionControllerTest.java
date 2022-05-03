@@ -8,6 +8,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import pl.tkaras.config.BaseIntegrationTest;
@@ -42,6 +43,7 @@ class QuestionControllerTest extends BaseIntegrationTest {
     private QuestionMapper questionMapper;
 
     @Order(7)
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     @Test
     void http_get_shouldFetchAllQuestionsIfExist() throws Exception {
         //given
@@ -63,6 +65,7 @@ class QuestionControllerTest extends BaseIntegrationTest {
   }
 
     @Order(1)
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     @Test
     void http_get_shouldFetchEmptyListIfQuestionsNotExist() throws Exception {
         //given
@@ -76,6 +79,7 @@ class QuestionControllerTest extends BaseIntegrationTest {
     }
 
     @Order(8)
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     @Test
     void http_get_shouldFetchRandomQuestionsIfExist() throws Exception {
         //given
@@ -99,6 +103,7 @@ class QuestionControllerTest extends BaseIntegrationTest {
     }
 
     @Order(2)
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     @Test
     void http_get_shouldReturn404IfQuestionsNotExist() throws Exception {
         //given
@@ -115,6 +120,7 @@ class QuestionControllerTest extends BaseIntegrationTest {
     }
 
     @Order(3)
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     @Test
     void http_post_shouldReturn404IfCheckAnswerAndNotExist() throws Exception {
         //given
@@ -131,6 +137,7 @@ class QuestionControllerTest extends BaseIntegrationTest {
     }
 
     @Order(6)
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     @Test
     void http_post_shouldAddQuestion() throws Exception {
         //given
@@ -154,6 +161,7 @@ class QuestionControllerTest extends BaseIntegrationTest {
     }
 
     @Order(9)
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     @Test
     void http_put_shouldUpdateQuestionIfExist() throws Exception {
         //given
@@ -178,6 +186,7 @@ class QuestionControllerTest extends BaseIntegrationTest {
     }
 
     @Order(4)
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     @Test
     void http_put_shouldReturn404IfUpdateQuestionAndNotExist() throws Exception {
         //given
@@ -194,6 +203,7 @@ class QuestionControllerTest extends BaseIntegrationTest {
     }
 
     @Order(10)
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     @Test
     void http_delete_shouldDeleteQuestionIfExist() throws Exception {
         //given
@@ -208,6 +218,7 @@ class QuestionControllerTest extends BaseIntegrationTest {
     }
 
     @Order(5)
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     @Test
     void http_delete_shouldReturn404IfDeleteQuestionAndNotExist() throws Exception {
         //given
