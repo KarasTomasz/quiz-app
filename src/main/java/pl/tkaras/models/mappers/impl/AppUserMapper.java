@@ -26,6 +26,7 @@ public class AppUserMapper implements IMapper<AppUser, AppUserDTO> {
                 .email(appUserDTO.getEmail())
                 .firstName(appUserDTO.getFirstName())
                 .lastName(appUserDTO.getLastName())
+                .password(appUserDTO.getPassword())
                 .build();
     }
 
