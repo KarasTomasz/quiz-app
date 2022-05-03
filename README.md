@@ -18,7 +18,7 @@
 
 ### Rest API
 
-Api is available at this link: https://quiz-app-v002.herokuapp.com/swagger-ui.html (it may take a few for heroku to run)
+Api is available at this link: https://quiz-app-v002.herokuapp.com/swagger-ui.html (it may take a few seconds for heroku to run)
 
 
 ### Jenkins
