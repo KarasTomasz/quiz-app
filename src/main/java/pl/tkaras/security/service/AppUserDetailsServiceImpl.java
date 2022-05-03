@@ -17,7 +17,7 @@ public class AppUserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email){
         AppUser appUser = appUserRepository.findByEmail(email)
-                .orElseThrow(() -> new AppUserNotFound(email));
+                .orElseThrow(() -> new AppUserNotFound(this.getClass().getSimpleName(), email));
 
         return new AppUserDetailsImpl(appUser);
     }
