@@ -17,6 +17,7 @@ public class AppUserMapper implements IMapper<AppUser, AppUserDTO> {
                 .firstName(document.getFirstName())
                 .lastName(document.getLastName())
                 .email(document.getEmail())
+                .score(document.getScore())
                 .build();
     }
 
