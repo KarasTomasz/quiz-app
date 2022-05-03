@@ -34,6 +34,7 @@ public class AppUserService implements IAppUserService {
         if(!appUserRepository.existsByEmail(appUser.getEmail())){
             appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
             appUser.setRole(AppUserRole.USER);
+            appUser.setScore(0L);
             return appUserRepository.save(appUser);
         }
         else{
