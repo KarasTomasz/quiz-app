@@ -7,7 +7,8 @@ import pl.tkaras.exceptions.NotFoundException;
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
 public class EmailNotFound extends NotFoundException {
 
-    public EmailNotFound(String email) {
-        super(email);
+    public EmailNotFound(String className, String email) {
+        super(className, email);
+
     }
 }

@@ -7,7 +7,7 @@ import pl.tkaras.exceptions.AlreadyExistException;
 @ResponseStatus(value = HttpStatus.FORBIDDEN)
 public class AppUserAlreadyExist extends AlreadyExistException {
 
-    public AppUserAlreadyExist(String email) {
-        super(email);
+    public AppUserAlreadyExist(String className, String email) {
+        super(className, email);
     }
 }

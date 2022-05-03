@@ -6,7 +6,7 @@ import pl.tkaras.exceptions.NotFoundException;
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
 public class QuestionNotFound extends NotFoundException {
 
-    public QuestionNotFound(String id) {
-        super(id);
+    public QuestionNotFound(String className, String id) {
+        super(className, id);
     }
 }

@@ -4,7 +4,7 @@ import pl.tkaras.exceptions.NotFoundException;
 
 public class AnswerNotFound extends NotFoundException {
 
-    public AnswerNotFound(Object o) {
-        super(o);
+    public AnswerNotFound(String className, String s) {
+        super(className, s);
     }
 }

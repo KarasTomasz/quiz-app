@@ -7,7 +7,7 @@ import pl.tkaras.exceptions.NotEnoughException;
 @ResponseStatus(value = HttpStatus.FORBIDDEN)
 public class AnswerAlreadyExist extends NotEnoughException {
 
-    public AnswerAlreadyExist(String s) {
-        super(s);
+    public AnswerAlreadyExist(String className, String s) {
+        super(className, s);
     }
 }
