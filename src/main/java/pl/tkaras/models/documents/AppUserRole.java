@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public enum AppUserRole {
-    ROLE_USER, ROLE_ADMIN;
+    USER, ADMIN;
 
     public Set<SimpleGrantedAuthority> getGrantedAuthority(){
         Set<SimpleGrantedAuthority> grantedAuthorities = new HashSet<>();
