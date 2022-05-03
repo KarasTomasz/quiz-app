@@ -1,8 +1,10 @@
 package pl.tkaras.services.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.tkaras.models.documents.AppUser;
+import pl.tkaras.models.documents.AppUserRole;
 import pl.tkaras.services.IAppUserService;
 import pl.tkaras.exceptions.impl.AppUserAlreadyExist;
 import pl.tkaras.exceptions.impl.AppUserNotFound;
@@ -17,27 +19,31 @@ public class AppUserService implements IAppUserService {
 
     private final AppUserRepository appUserRepository;
 
+    private final PasswordEncoder passwordEncoder;
+
     public List<AppUser> getAllAppUsers(){
         return appUserRepository.findAll();
     }
 
     public AppUser getAppUser(String email){
         return appUserRepository.findByEmail(email)
-                .orElseThrow(() -> new EmailNotFound(email));
+                .orElseThrow(() -> new EmailNotFound(this.getClass().getSimpleName(), email));
     }
 
     public AppUser addAppUser(AppUser appUser) {
         if(!appUserRepository.existsByEmail(appUser.getEmail())){
+            appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
+            appUser.setRole(AppUserRole.USER);
             return appUserRepository.save(appUser);
         }
         else{
-            throw new AppUserAlreadyExist(appUser.getEmail());
+            throw new AppUserAlreadyExist(this.getClass().getSimpleName(), appUser.getEmail());
         }
     }
 
     public AppUser updateAppUser(String email, AppUser appUser) {
         AppUser foundAppUser = appUserRepository.findByEmail(email)
-                .orElseThrow((() -> new AppUserNotFound(email)));
+                .orElseThrow((() -> new AppUserNotFound(this.getClass().getSimpleName(), email)));
 
         foundAppUser.setFirstName(appUser.getFirstName());
         foundAppUser.setLastName(appUser.getLastName());
@@ -51,7 +57,7 @@ public class AppUserService implements IAppUserService {
             appUserRepository.deleteByEmail(email);
         }
         else{
-            throw new AppUserNotFound(email);
+            throw new AppUserNotFound(this.getClass().getSimpleName(), email);
         }
     }
 }
