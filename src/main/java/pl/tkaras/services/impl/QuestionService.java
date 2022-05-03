@@ -33,7 +33,7 @@ public class QuestionService  implements IQuestionService {
         List<Question> questions = questionRepository.findAllByCategory(category);
 
         if (questions.size() < number){
-            throw new QuestionNotEnough("questions");
+            throw new QuestionNotEnough(this.getClass().getSimpleName(), "questions");
         }
         else{
 
@@ -66,7 +66,7 @@ public class QuestionService  implements IQuestionService {
                answerRepository.save(answer);
         }
         else {
-            throw new AnswerAlreadyExist(answer.getQuestionId());
+            throw new AnswerAlreadyExist(this.getClass().getSimpleName(), answer.getQuestionId());
         }
 
         return savedQuestion;
@@ -75,7 +75,7 @@ public class QuestionService  implements IQuestionService {
     public Question updateQuestion(String id, Question question) {
 
         Question foundQuestion = questionRepository.findById(id)
-                .orElseThrow(() -> new QuestionNotFound(id));
+                .orElseThrow(() -> new QuestionNotFound(this.getClass().getSimpleName(), id));
 
         foundQuestion.setCategory(question.getCategory());
         foundQuestion.setContent(question.getContent());
@@ -90,7 +90,7 @@ public class QuestionService  implements IQuestionService {
     public void deleteQuestion(String id) {
 
         Question returnedQuestion = questionRepository.findById(id)
-                .orElseThrow(() -> new QuestionNotFound(id));
+                .orElseThrow(() -> new QuestionNotFound(this.getClass().getSimpleName(), id));
 
         if (answerRepository.existsByQuestionId(returnedQuestion.getId())){
             //delete answer
@@ -100,7 +100,7 @@ public class QuestionService  implements IQuestionService {
             questionRepository.deleteById(id);
         }
         else {
-            throw new AnswerNotFound("answer");
+            throw new AnswerNotFound(this.getClass().getSimpleName(), "answer");
         }
     }
 }
