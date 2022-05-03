@@ -39,10 +39,12 @@ There are already two users in database with different permissions:
 
 <ul style="list-style-type:circle">
 
+
 The user role are allowed to:
 <li> fetch random questions by category </li>
 <li> fetch all questions by category </li>
 <li> check answer </li>
+
 
 The admin role has wider privileges:
 <li> add question </li>
