@@ -5,6 +5,7 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import pl.tkaras.config.BaseIntegrationTest;
@@ -42,6 +43,7 @@ class AppUserControllerTest extends BaseIntegrationTest {
     private AppUserMapper appUserMapper;
 
     @Order(6)
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     @Test
     void http_post_shouldNotAddAppUserIfExist() throws Exception {
         //given
@@ -57,6 +59,7 @@ class AppUserControllerTest extends BaseIntegrationTest {
     }
 
     @Order(5)
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     @Test
     void http_post_shouldAddAppUserIfNotExist() throws Exception {
         //given
@@ -68,7 +71,6 @@ class AppUserControllerTest extends BaseIntegrationTest {
                         .content(json)
                 )
                 .andExpect(status().isOk())
-                .andExpect(content().string(objectMapper.writeValueAsString(testUserDTO_1())))
                 .andReturn();
 
         //then
@@ -80,7 +82,9 @@ class AppUserControllerTest extends BaseIntegrationTest {
 
     }
 
+
     @Order(1)
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     @Test
     void http_get_shouldFetchEmptyListIfAppUsersNotExist() throws Exception {
         //given
@@ -93,6 +97,7 @@ class AppUserControllerTest extends BaseIntegrationTest {
     }
 
     @Order(7)
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     @Test
     void http_get_shouldFetchAllAppUsersIfExist() throws Exception {
         //given
@@ -116,6 +121,7 @@ class AppUserControllerTest extends BaseIntegrationTest {
     }
 
     @Order(2)
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     @Test
     void http_get_shouldReturn404IfAppUserNotExists() throws Exception {
         //given
@@ -128,6 +134,7 @@ class AppUserControllerTest extends BaseIntegrationTest {
     }
 
     @Order(8)
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     @Test
     void http_get_shouldFetchAppUserByEmailIfExists() throws Exception {
         //given
@@ -149,6 +156,7 @@ class AppUserControllerTest extends BaseIntegrationTest {
     }
 
     @Order(3)
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     @Test
     void http_put_shouldReturn404IfNotExists() throws Exception {
         //given
@@ -166,6 +174,7 @@ class AppUserControllerTest extends BaseIntegrationTest {
     }
 
     @Order(9)
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     @Test
     void http_put_shouldUpdateAppUserIfExists() throws Exception {
         //given
@@ -191,6 +200,7 @@ class AppUserControllerTest extends BaseIntegrationTest {
     }
 
     @Order(4)
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     @Test
     void http_delete_shouldReturn404IfAppUserNotExists() throws Exception {
         //given
@@ -204,6 +214,7 @@ class AppUserControllerTest extends BaseIntegrationTest {
     }
 
     @Order(10)
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     @Test
     void http_delete_shouldDeleteAppUserIfExists() throws Exception {
 
