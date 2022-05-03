@@ -18,7 +18,7 @@ public class AnswerService implements IAnswerService {
     @Override
     public Answer getAnswer(String questionID) {
         return answerRepository.findByQuestionId(questionID)
-                .orElseThrow(() -> new AnswerNotFound(questionID));
+                .orElseThrow(() -> new AnswerNotFound(this.getClass().getSimpleName(), questionID));
     }
 
     @Override
@@ -27,14 +27,14 @@ public class AnswerService implements IAnswerService {
             return answerRepository.save(answer);
         }
         else {
-            throw new AnswerAlreadyExist(answer.getQuestionId());
+            throw new AnswerAlreadyExist(this.getClass().getSimpleName(), answer.getQuestionId());
         }
     }
 
     @Override
     public boolean checkAnswer(String questionID, Integer num) {
         Answer answer = answerRepository.findByQuestionId(questionID)
-                .orElseThrow(() -> new AnswerNotFound(questionID));
+                .orElseThrow(() -> new AnswerNotFound(this.getClass().getSimpleName(), questionID));
 
         return answer.getCorrectAnswer().equals(num);
     }
@@ -42,7 +42,7 @@ public class AnswerService implements IAnswerService {
     @Override
     public Answer updateAnswer(String id, Answer answer) {
         Answer foundAnswer = answerRepository.findById(id)
-                .orElseThrow(() -> new AnswerNotFound(id));
+                .orElseThrow(() -> new AnswerNotFound(this.getClass().getSimpleName(), id));
 
         foundAnswer.setQuestionId(answer.getQuestionId());
         foundAnswer.setCorrectAnswer(answer.getCorrectAnswer());
@@ -55,7 +55,7 @@ public class AnswerService implements IAnswerService {
             answerRepository.deleteById(id);
         }
         else {
-            throw new AnswerNotFound(id);
+            throw new AnswerNotFound(this.getClass().getSimpleName(), id);
         }
     }
 }
