@@ -19,10 +19,10 @@ public class AnswerController {
     private final AnswerService answerService;
     private final AnswerMapper answerMapper;
 
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/check")
-    public ResponseEntity<AnswerDTO> checkAnswer(@RequestParam("questionID") String questionID, @RequestParam("num") Integer num){
-        boolean isAnswerRight = answerService.checkAnswer(questionID, num);
+    public ResponseEntity<AnswerDTO> checkAnswer(@RequestParam("email") String email, @RequestParam("questionID") String questionID, @RequestParam("answer") Integer usersAnswer){
+        boolean isAnswerRight = answerService.checkAnswer(email, questionID, usersAnswer);
         Answer answer = answerService.getAnswer(questionID);
         AnswerDTO answerDTO = answerMapper.mapToDto(answer);
         answerDTO.setAnswerRight(isAnswerRight);
