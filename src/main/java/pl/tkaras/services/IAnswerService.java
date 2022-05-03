@@ -8,7 +8,7 @@ public interface IAnswerService {
 
     Answer addAnswer(Answer answer);
 
-    boolean checkAnswer(String questionId, Integer num);
+    boolean checkAnswer(String email, String questionId, Integer num);
 
     Answer updateAnswer(String id, Answer answerDTO);
 
