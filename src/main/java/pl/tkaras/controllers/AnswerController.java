@@ -23,7 +23,7 @@ public class AnswerController {
     @GetMapping("/check")
     public ResponseEntity<AnswerDTO> checkAnswer(@RequestParam("email") String email, @RequestParam("questionID") String questionID, @RequestParam("answer") Integer usersAnswer){
         boolean isAnswerRight = answerService.checkAnswer(email, questionID, usersAnswer);
-        Answer answer = answerService.getAnswer(questionID);
+        Answer answer = answerService.getAnswerByQuestionId(questionID);
         AnswerDTO answerDTO = answerMapper.mapToDto(answer);
         answerDTO.setAnswerRight(isAnswerRight);
         return new ResponseEntity<>(answerDTO , HttpStatus.OK);
@@ -31,9 +31,9 @@ public class AnswerController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("")
-    public ResponseEntity<AnswerDTO> updateAnswer(@RequestParam("id") String id, @RequestBody AnswerDTO answerDTO){
+    public ResponseEntity<AnswerDTO> updateAnswer(@RequestParam("questionId") String questionId, @RequestBody AnswerDTO answerDTO){
         Answer answer = answerMapper.mapToDocument(answerDTO);
-        Answer returnedAnswer = answerService.updateAnswer(id, answer);
+        Answer returnedAnswer = answerService.updateAnswer(questionId, answer);
         return new ResponseEntity<>(answerMapper.mapToDto(returnedAnswer), HttpStatus.OK);
     }
 }
