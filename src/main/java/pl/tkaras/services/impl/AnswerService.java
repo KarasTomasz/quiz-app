@@ -2,7 +2,6 @@ package pl.tkaras.services.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.tkaras.exceptions.impl.AnswerAlreadyExist;
 import pl.tkaras.exceptions.impl.AnswerNotFound;
 import pl.tkaras.exceptions.impl.AppUserNotFound;
 import pl.tkaras.models.documents.Answer;
@@ -21,19 +20,9 @@ public class AnswerService implements IAnswerService {
 
 
     @Override
-    public Answer getAnswer(String questionID) {
+    public Answer getAnswerByQuestionId(String questionID) {
         return answerRepository.findByQuestionId(questionID)
                 .orElseThrow(() -> new AnswerNotFound(this.getClass().getSimpleName(), questionID));
-    }
-
-    @Override
-    public Answer addAnswer(Answer answer) {
-        if (!answerRepository.existsByQuestionId(answer.getQuestionId())){
-            return answerRepository.save(answer);
-        }
-        else {
-            throw new AnswerAlreadyExist(this.getClass().getSimpleName(), answer.getQuestionId());
-        }
     }
 
     @Override
@@ -52,22 +41,10 @@ public class AnswerService implements IAnswerService {
     }
 
     @Override
-    public Answer updateAnswer(String id, Answer answer) {
-        Answer foundAnswer = answerRepository.findById(id)
-                .orElseThrow(() -> new AnswerNotFound(this.getClass().getSimpleName(), id));
+    public Answer updateAnswer(String questionID, Answer answer) {
+        Answer foundAnswer = answerRepository.findByQuestionId(questionID)
+                .orElseThrow(() -> new AnswerNotFound(this.getClass().getSimpleName(), questionID));
 
-        foundAnswer.setQuestionId(answer.getQuestionId());
-        foundAnswer.setCorrectAnswer(answer.getCorrectAnswer());
         return answerRepository.save(foundAnswer);
-    }
-
-    @Override
-    public void deleteAnswer(String id) {
-        if(answerRepository.existsById(id)){
-            answerRepository.deleteById(id);
-        }
-        else {
-            throw new AnswerNotFound(this.getClass().getSimpleName(), id);
-        }
     }
 }
